@@ -6,26 +6,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public event Action<float, float> OnRightLeftBoundryChanged;
+    public event Action<int> OnCrowdCountChanged;
 
     [Header("Spiral Parameters")]
     [SerializeField] private float radius = 2f;
     [SerializeField] private float angleInDegree = 30f;
 
-    [Header("Crowded Parameters")]
-    [SerializeField] private Transform crowdedPrefabTransform;
+    [Header("Crowd Parameters")]
+    [SerializeField] private Transform crowdPrefabTransform;
     [SerializeField] private float startQuanties = 5f;
-    [SerializeField] private Transform crowdedParent;
+    [SerializeField] private Transform crowdParent;
 
-    List<Transform> crowdedTransfromList = new List<Transform>();
+    List<Transform> crowdTransfromList = new List<Transform>();
     private float rightBoundry;
     private float leftBoundry;
 
     private void Awake()
     {
-        crowdedTransfromList.Clear();
+        crowdTransfromList.Clear();
         for (int i = 0; i < startQuanties; i++)
         {
-            crowdedTransfromList.Add(Instantiate(crowdedPrefabTransform, crowdedParent));
+            crowdTransfromList.Add(Instantiate(crowdPrefabTransform, crowdParent));
         }
 
         ReOrderCrowded();
@@ -45,16 +46,17 @@ public class Player : MonoBehaviour
         float x, z;
         rightBoundry = leftBoundry = 0;
 
-        for (int i = 0; i < crowdedTransfromList.Count; i++)
+        for (int i = 0; i < crowdTransfromList.Count; i++)
         {
             x = radius * Mathf.Sqrt(i) * Mathf.Cos(Mathf.Deg2Rad * i * angleInDegree);
             z = radius * Mathf.Sqrt(i) * Mathf.Sin(Mathf.Deg2Rad * i * angleInDegree);
 
             rightBoundry = x > rightBoundry ? x : rightBoundry;
             leftBoundry = x < leftBoundry ? x : leftBoundry;
-            crowdedTransfromList[i].localPosition = new Vector3(x, 0, z);
+            crowdTransfromList[i].localPosition = new Vector3(x, 0, z);
         }
 
         OnRightLeftBoundryChanged?.Invoke(rightBoundry, leftBoundry);
+        OnCrowdCountChanged?.Invoke(crowdTransfromList.Count);
     }
 }

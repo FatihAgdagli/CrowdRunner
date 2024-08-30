@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -12,17 +13,23 @@ public class PlayerController : MonoBehaviour
     private bool isTouched;
     private Vector3 firstTouchedPosition;
     private float deathZone = 0.1f;
+    private float roadwidth = 10f;
+    private float rightBoundry, leftBoundry;
+    private float horizontalMovement, verticalMovement;
+
+    private void Awake()
+    {
+        GetComponent<Player>().OnRightLeftBoundryChanged += Player_OnRightLeftBoundryChanged;    
+    }
 
     private void Update()
     {
-        HandleInputTouched(out float slideDirection);
-
-        transform.Translate( new Vector3(slideDirection * slideSpeed, 0, forwardSpeed) * Time.deltaTime );
+        HandleMovement();
     }
 
-    private void HandleInputTouched(out float slideDirection)
+    private void HandleMovement()
     {
-        slideDirection = 0f;
+        float slideDirection = 0f;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -44,6 +51,18 @@ public class PlayerController : MonoBehaviour
             }
 
             slideDirection = moveDifferance > 0 ? 1f : -1f;
+
+            horizontalMovement = slideDirection * slideSpeed * Time.deltaTime;
+            horizontalMovement = Mathf.Clamp(horizontalMovement, leftBoundry, rightBoundry);
+            verticalMovement = forwardSpeed * Time.deltaTime;
+
+            transform.Translate(horizontalMovement, 0f, verticalMovement);
         }
+    }
+
+    private void Player_OnRightLeftBoundryChanged(float arg1, float arg2)
+    {
+        rightBoundry = (roadwidth / 2f) - arg1;
+        leftBoundry = -(roadwidth / 2f) - arg2;
     }
 }

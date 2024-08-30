@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,10 +25,44 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        CalculateHorizontalMovement();
+        CalculateVerticalMovement();
         HandleMovement();
     }
 
     private void HandleMovement()
+    {
+        if ((transform.position.x + horizontalMovement) > rightBoundry)
+        {
+            horizontalMovement = rightBoundry - transform.position.x;
+        }
+        else if ((transform.position.x + horizontalMovement) < leftBoundry)
+        {
+            horizontalMovement = leftBoundry - transform.position.x;
+        }
+        transform.Translate(horizontalMovement, 0f, verticalMovement);
+    }
+
+    private void CalculateVerticalMovement()
+    {
+        verticalMovement = forwardSpeed * Time.deltaTime;
+    }
+
+    private void CalculateHorizontalMovement()
+    {
+        horizontalMovement = 0f;
+
+        if (!Input.GetMouseButton(0))
+        {
+            return;
+        }
+
+        horizontalMovement = Input.mousePosition.x/ Screen.width;
+        horizontalMovement = horizontalMovement > 0.5f ? 1f : -1f;
+        horizontalMovement *= (slideSpeed * Time.deltaTime);
+    }
+
+    private void HandleMovement_V0()
     {
         float slideDirection = 0f;
 
@@ -47,7 +82,7 @@ public class PlayerController : MonoBehaviour
             if (moveDifferance < deathZone &&
                 moveDifferance > -deathZone)
             {
-                return;
+                moveDifferance = 0;
             }
 
             slideDirection = moveDifferance > 0 ? 1f : -1f;

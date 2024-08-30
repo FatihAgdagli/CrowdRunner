@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 10
-  slideSpeed: 15
+  slideSpeed: 10
 --- !u!114 &2125902567
 MonoBehaviour:
   m_ObjectHideFlags: 0

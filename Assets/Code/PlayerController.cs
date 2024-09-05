@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float slideSpeed = 3.0f;
 
+    private bool isMovingValid = true;
     private bool isTouched;
     private Vector3 firstTouchedPosition;
     private float deathZone = 0.1f;
@@ -20,11 +21,22 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<Player>().OnRightLeftBoundryChanged += Player_OnRightLeftBoundryChanged;    
+        Player player = GetComponent<Player>();
+        player.OnRightLeftBoundryChanged += Player_OnRightLeftBoundryChanged;
+        player.OnReachedFinishLine += Player_OnReachedFinishLine;
+    }
+
+    private void Player_OnReachedFinishLine()
+    {
+        isMovingValid = false;
     }
 
     private void Update()
     {
+        if (!isMovingValid)
+        {
+            return;
+        }
         CalculateHorizontalMovement();
         CalculateVerticalMovement();
         HandleMovement();
@@ -95,9 +107,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Player_OnRightLeftBoundryChanged(float arg1, float arg2)
+    private void Player_OnRightLeftBoundryChanged(float right, float left)
     {
-        rightBoundry = (roadwidth / 2f) - arg1;
-        leftBoundry = -(roadwidth / 2f) - arg2;
+        rightBoundry = (roadwidth / 2f) - right;
+        leftBoundry = -(roadwidth / 2f) - left;
     }
 }

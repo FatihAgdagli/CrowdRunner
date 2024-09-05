@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 70fecd41ef3c4f749a83d71284cb29e7,
         type: 3}
       propertyPath: m_Name
-      value: HCRig
+      value: Crowd
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -71,6 +71,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1209633729562304147}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 70fecd41ef3c4f749a83d71284cb29e7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2857964438362650124}
   m_SourcePrefab: {fileID: 100100000, guid: 70fecd41ef3c4f749a83d71284cb29e7, type: 3}
 --- !u!1 &6285812659472089933 stripped
 GameObject:
@@ -99,3 +103,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2857964438362650124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285812659472089933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434d91694949f574aa059ceaa41a36be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

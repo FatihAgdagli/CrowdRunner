@@ -41,7 +41,7 @@ public class Gate : MonoBehaviour
             return;
         }
 
-        if (other.TryGetComponent(out IInteractableWithGate interactable))
+        if (other.TryGetComponent(out IInteractable interactable))
         {
             isItFirstCollide = true;
             interactable.Interact(gateIdentifier);

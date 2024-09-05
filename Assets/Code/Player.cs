@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IInteractableWithGate
+public class Player : MonoBehaviour, IInteractable
 {
     public event Action<float, float> OnRightLeftBoundryChanged;
     public event Action<int> OnCrowdCountChanged;
     public event Action OnCrowdFinished;
+    public event Action OnReachedFinishLine;
 
     [Header("Spiral Parameters")]
     [SerializeField] private float radius = 2f;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour, IInteractableWithGate
 
     [Header("Crowd Parameters")]
     [SerializeField] private Transform crowdPrefabTransform;
-    [SerializeField] private float startQuanties = 5f;
+    [SerializeField] private int startQuanties = 5;
     [SerializeField] private Transform crowdParent;
 
     List<Transform> crowdTransfromList = new List<Transform>();
@@ -26,12 +27,7 @@ public class Player : MonoBehaviour, IInteractableWithGate
     private void Awake()
     {
         crowdTransfromList.Clear();
-        for (int i = 0; i < startQuanties; i++)
-        {
-            crowdTransfromList.Add(Instantiate(crowdPrefabTransform, crowdParent));
-        }
-
-        ReOrderCrowded();
+        Addition(startQuanties);
     }
 
     private void Update()
@@ -61,7 +57,6 @@ public class Player : MonoBehaviour, IInteractableWithGate
         OnCrowdCountChanged?.Invoke(crowdTransfromList.Count);
     }
 
-
     private void Substraction(int count)
     {
         count = count > crowdTransfromList.Count ? crowdTransfromList.Count : count;
@@ -84,6 +79,8 @@ public class Player : MonoBehaviour, IInteractableWithGate
         for (int i = 0; i < count; i++)
         {
             crowdTransfromList.Add(Instantiate(crowdPrefabTransform, crowdParent));
+            CrowdAnimationController animationController = crowdTransfromList[i].GetComponentInChildren<CrowdAnimationController>();
+            animationController.SetPlayer(this);
         }
         ReOrderCrowded();
     }
@@ -109,6 +106,11 @@ public class Player : MonoBehaviour, IInteractableWithGate
                 break;
         }
     }
-    
+
+    public void Interact(FinishLine finishLine)
+    {
+        OnReachedFinishLine?.Invoke();
+    }
+
     public int GetCrowdCount() => crowdTransfromList.Count;
 }

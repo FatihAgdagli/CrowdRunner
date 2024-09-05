@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UIToolKitStyle.uss?fileID=7433441132597879392&amp;guid=d6ff76f2e420b904798aa52a405b86be&amp;type=3#UIToolKitStyle" />
+    <ui:VisualElement name="VisualTree" style="flex-grow: 1;">
+        <ui:Label text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TestLabel" />
+        <uie:PropertyField binding-path="testInt" label="Int Value" name="TestIntegerField" />
+        <ui:VisualElement name="ChunkElements" style="flex-grow: 1;">
+            <uie:PropertyField name="ChunkField" binding-path="chunk" label="IChunk" />
+            <ui:VisualElement name="VisiableElements" style="flex-grow: 1; flex-direction: row;">
+                <ui:VisualElement name="Left" style="flex-grow: 1;">
+                    <ui:Label text="LEFT GATE" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 16px;" />
+                    <uie:ColorField label="Color" value="RGBA(0.000, 1.000, 1.000, 1.000)" name="ColorLeft" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="OprLeft" />
+                    <ui:IntegerField label="Integer Field" value="42" name="ScalarLeft" />
+                    <uie:PropertyField name="GateIdentifierLeft" binding-path="leftIdentifier" label="Identifier" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Right" style="flex-grow: 1;">
+                    <ui:Label text="RIGHT GATE" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 16px;" />
+                    <uie:ColorField label="Color" value="RGBA(0.000, 1.000, 1.000, 1.000)" name="ColorRight" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="OptRight" />
+                    <ui:IntegerField label="Integer Field" value="42" name="ScalarRight" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IInteractableWithGate
 {
     public event Action<float, float> OnRightLeftBoundryChanged;
     public event Action<int> OnCrowdCountChanged;
+    public event Action OnCrowdFinished;
 
     [Header("Spiral Parameters")]
     [SerializeField] private float radius = 2f;
@@ -40,7 +42,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private void ReOrderCrowded()
     {
         float x, z;
@@ -59,4 +60,55 @@ public class Player : MonoBehaviour
         OnRightLeftBoundryChanged?.Invoke(rightBoundry, leftBoundry);
         OnCrowdCountChanged?.Invoke(crowdTransfromList.Count);
     }
+
+
+    private void Substraction(int count)
+    {
+        count = count > crowdTransfromList.Count ? crowdTransfromList.Count : count;
+        for (int i = 0; i < count; i++)
+        {
+            Destroy(crowdTransfromList.Last().gameObject);
+            crowdTransfromList.RemoveAt(crowdTransfromList.Count - 1);
+        }
+
+        if (crowdTransfromList.Count == 0)
+        {
+            OnCrowdFinished?.Invoke();
+        }
+ 
+        ReOrderCrowded();
+    }
+
+    private void Addition(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            crowdTransfromList.Add(Instantiate(crowdPrefabTransform, crowdParent));
+        }
+        ReOrderCrowded();
+    }
+
+    public void Interact(GateIdentifier gateIdentifier)
+    {
+        int count = gateIdentifier.factor;
+        switch (gateIdentifier.operation)
+        {
+            case GateOper.Add:
+                Addition(count);
+                break;
+            case GateOper.Sub:
+                Substraction(count);
+                break;
+            case GateOper.Multiply:
+                count = gateIdentifier.factor * crowdTransfromList.Count;
+                Addition(count);
+                break;
+            case GateOper.Divide:
+                count = Mathf.CeilToInt(((float)crowdTransfromList.Count) / gateIdentifier.factor);
+                Substraction(count);
+                break;
+        }
+    }
+    
+    public int GetCrowdCount() => crowdTransfromList.Count;
 }

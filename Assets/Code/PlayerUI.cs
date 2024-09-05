@@ -8,7 +8,9 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<Player>().OnCrowdCountChanged += Player_OnCrowdCountChanged; ;
+        Player player = GetComponent<Player>();
+        player.OnCrowdCountChanged += Player_OnCrowdCountChanged;
+        Player_OnCrowdCountChanged(player.GetCrowdCount());
     }
 
     private void Player_OnCrowdCountChanged(int count)

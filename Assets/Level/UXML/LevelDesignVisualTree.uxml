@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="CreatePlayerAndCamera" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; bottom: auto; margin-bottom: 5px; margin-top: 5px; margin-right: 10px; margin-left: 10px; padding-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; width: auto; height: 30px;">
+        <ui:Button text="Create Player And Camera" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreatePlayerButton" style="align-items: auto; height: 25px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ChunkElement" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px;">
+        <ui:Label text="Chunk (Empty)" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold;" />
+        <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ChunkWithGate" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px;">
+        <ui:Label text="Chunk With Gate" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold;" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="Left" style="flex-grow: 1;">
+                <ui:Label text="LEFT GATE" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal; font-size: 14px;" />
+                <uie:ColorField label="Color" value="RGBA(0.000, 1.000, 1.000, 1.000)" name="ColorLeft" />
+                <ui:EnumField label="Operation" name="OprLeft" type="GateOper, Assembly-CSharp" />
+                <ui:IntegerField label="Factor" value="1" name="ScalarLeft" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Right" style="flex-grow: 1; -unity-font-style: normal;">
+                <ui:Label text="RIGHT GATE" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal; font-size: 14px;" />
+                <uie:ColorField label="Color" value="RGBA(0.000, 1.000, 1.000, 1.000)" name="ColorRight" />
+                <ui:EnumField label="Operation" type="GateOper, Assembly-CSharp" name="OprRight" />
+                <ui:IntegerField label="Factor" value="1" name="ScalarRight" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkGateAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
+    </ui:VisualElement>
+</ui:UXML>

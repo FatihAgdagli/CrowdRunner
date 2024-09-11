@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerCrowd))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -11,17 +11,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float slideSpeed = 3.0f;
 
+    private bool isPlayerAtBattleMode;
     private bool isMovingValid = true;
     private bool isTouched;
     private Vector3 firstTouchedPosition;
-    private float deathZone = 0.1f;
+
     private float roadwidth = 10f;
     private float rightBoundry, leftBoundry;
     private float horizontalMovement, verticalMovement;
+    private float forwardSpeedBuffer;
 
     private void Awake()
     {
-        Player player = GetComponent<Player>();
+        PlayerCrowd player = GetComponent<PlayerCrowd>();
         player.OnRightLeftBoundryChanged += Player_OnRightLeftBoundryChanged;
         player.OnReachedFinishLine += Player_OnReachedFinishLine;
     }
@@ -62,23 +64,14 @@ public class PlayerController : MonoBehaviour
 
     private void CalculateHorizontalMovement()
     {
-        horizontalMovement = 0f;
-
-        if (!Input.GetMouseButton(0))
+        if (isPlayerAtBattleMode)
         {
             return;
         }
 
-        horizontalMovement = Input.mousePosition.x/ Screen.width;
-        horizontalMovement = horizontalMovement > 0.5f ? 1f : -1f;
-        horizontalMovement *= (slideSpeed * Time.deltaTime);
-    }
+        horizontalMovement = 0f;
 
-    private void HandleMovement_V0()
-    {
-        float slideDirection = 0f;
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isTouched)
         {
             isTouched = true;
             firstTouchedPosition = Input.mousePosition;
@@ -88,28 +81,32 @@ public class PlayerController : MonoBehaviour
             isTouched = false;
         }
 
-        if (isTouched)
+        if (!Input.GetMouseButton(0))
         {
-            float moveDifferance = (Input.mousePosition - firstTouchedPosition).normalized.x;
-            if (moveDifferance < deathZone &&
-                moveDifferance > -deathZone)
-            {
-                moveDifferance = 0;
-            }
-
-            slideDirection = moveDifferance > 0 ? 1f : -1f;
-
-            horizontalMovement = slideDirection * slideSpeed * Time.deltaTime;
-            horizontalMovement = Mathf.Clamp(horizontalMovement, leftBoundry, rightBoundry);
-            verticalMovement = forwardSpeed * Time.deltaTime;
-
-            transform.Translate(horizontalMovement, 0f, verticalMovement);
+            return;
         }
+
+        horizontalMovement = Input.mousePosition.x/ Screen.width;
+        horizontalMovement = Input.mousePosition.x > firstTouchedPosition.x ? 1f : -1f;
+        horizontalMovement *= (slideSpeed * Time.deltaTime);
     }
 
     private void Player_OnRightLeftBoundryChanged(float right, float left)
     {
         rightBoundry = (roadwidth / 2f) - right;
         leftBoundry = -(roadwidth / 2f) - left;
+    }
+
+    public void ChangeSpeedForBattle()
+    {
+        forwardSpeedBuffer = forwardSpeed;
+        forwardSpeed = 1f;
+        isPlayerAtBattleMode = true;
+    }
+
+    public void SetSpeedInitializeValue()
+    {
+        forwardSpeed = forwardSpeedBuffer;
+        isPlayerAtBattleMode = false;
     }
 }

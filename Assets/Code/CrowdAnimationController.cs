@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrowdAnimationController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private Player player;
+    [SerializeField] private BaseCrowd player;
     private enum PlayerAnimation
     {
         Idle = 0,
@@ -27,7 +27,7 @@ public class CrowdAnimationController : MonoBehaviour
         }
     }
 
-    public void SetPlayer(Player player)
+    public void SetPlayer(BaseCrowd player)
     {
         this.player = player;
         this.player.OnReachedFinishLine += Player_OnReachedFinishLine;

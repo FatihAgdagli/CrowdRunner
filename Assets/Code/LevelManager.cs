@@ -9,11 +9,11 @@ public class LevelManager : MonoBehaviour
     private string cameraName = "Camera";
     private string playerName = "Player";
 
-    public void CreateCameraAndPlayer()
+    public void CreateCameraAndPlayer(int playerCount)
     {
         if (cameraID < 0 || playerID < 0)
         {
-            Create();
+            Create(playerCount);
             return;
         }
 
@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
         GameObject playerGO = GameObject.Find(playerName);
         if (playerGO == null)
         {
-            CreatePlayer();
+            CreatePlayer(playerCount);
         }
         else
         {
@@ -38,17 +38,18 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Create()
+    private void Create(int playerCount)
     {
         CreateCamera();
 
-        CreatePlayer();
+        CreatePlayer(playerCount);
     }
-    private void CreatePlayer()
+    private void CreatePlayer(int playerCount)
     {
         GameObject playerGO = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         playerID = playerGO.GetInstanceID();
         playerGO.name = playerName;
+        playerGO.GetComponent<PlayerCrowd>().StartQuanties = playerCount;
 
         GameObject cameraGO = GameObject.Find(cameraName);
         cameraGO.GetComponentInChildren<CinemachineVirtualCamera>().Follow = playerGO.transform;

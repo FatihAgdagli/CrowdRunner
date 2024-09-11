@@ -47,3 +47,7 @@ MonoBehaviour:
   chunk: {fileID: 417909117072070430, guid: 6a4981b939b52ba44bba9cc5ec5d6cc8, type: 3}
   chunkWithGate: {fileID: 5811717696021472758, guid: 8a0d70f33ba930747bac9f5b70fbf4a1,
     type: 3}
+  chunkWithEnemy: {fileID: 3772807344889419877, guid: dca55622646950d4ab537751e2c26437,
+    type: 3}
+  chunkWithFinishLine: {fileID: 2951262277345883041, guid: 6fc66c982778441448646b0680424080,
+    type: 3}

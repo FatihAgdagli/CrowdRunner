@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1150702020875725224}
-  - component: {fileID: 7710721935616491009}
+  - component: {fileID: 2951262277345883041}
   m_Layer: 0
   m_Name: ChunkWithFinishLine
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 7109842480807038771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7710721935616491009
+--- !u!114 &2951262277345883041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5211193691340746782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6320a98608b92f4e90090b0a6028986, type: 3}
+  m_Script: {fileID: 11500000, guid: e492832e0a4394246ac72d745cb99ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8246526745160243810

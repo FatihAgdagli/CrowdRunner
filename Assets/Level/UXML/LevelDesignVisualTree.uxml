@@ -1,8 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <ui:VisualElement name="CreatePlayerAndCamera" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; bottom: auto; margin-bottom: 5px; margin-top: 5px; margin-right: 10px; margin-left: 10px; padding-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; width: auto; height: 30px;">
+    <ui:VisualElement name="CreatePlayerAndCamera" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; bottom: auto; margin-bottom: 5px; margin-top: 5px; margin-right: 10px; margin-left: 10px; padding-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; width: auto; height: 102px;">
+        <ui:IntegerField label="Player Count" value="1" name="PlayerCount" />
         <ui:Button text="Create Player And Camera" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreatePlayerButton" style="align-items: auto; height: 25px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
     </ui:VisualElement>
-    <ui:VisualElement name="ChunkElement" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px;">
+    <ui:VisualElement name="ChunkElement" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px; margin-top: 0;">
         <ui:Label text="Chunk (Empty)" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold;" />
         <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
     </ui:VisualElement>
@@ -23,5 +24,14 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkGateAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ChunkWithEnemy" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px;">
+        <ui:Label text="Chunk With Enemy" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold;" />
+        <ui:IntegerField label="Enemy Count" value="1" name="EnemyCount" />
+        <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkEnemyAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ChunkWithFinish" style="flex-grow: 1; flex-direction: column; margin-bottom: 10px;">
+        <ui:Label text="Chunk With Finish Line" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold;" />
+        <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChunkFinishAddButton" style="height: 25px; margin-top: 5px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px;" />
     </ui:VisualElement>
 </ui:UXML>

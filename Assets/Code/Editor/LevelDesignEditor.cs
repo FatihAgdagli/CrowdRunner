@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
+using System;
 
 [CustomEditor(typeof(LevelDesignSO))]
 public class LevelDesignEditor : Editor
@@ -13,8 +14,8 @@ public class LevelDesignEditor : Editor
     private VisualElement root;
     private EnumField leftOpr, rightOpr;
     private ColorField leftColor, rightColor;
-    private IntegerField leftScalar, rightScalar;
-    private Button createPlayerButton, chunkButton, chunkWithGateButton;
+    private IntegerField leftScalar, rightScalar, playerCount, enemyCount;
+    private Button createPlayerButton, chunkButton, chunkWithGateButton, chunkWithEnemyButton, chunkWithFinishButton;
     private GameObject chunkFactoryPrefab;
     private ChunkFactory chunkFactory;
     private LevelManager levelManager;
@@ -31,18 +32,28 @@ public class LevelDesignEditor : Editor
         rightOpr = root.Q<EnumField>("OprRight");
         leftScalar = root.Q<IntegerField>("ScalarLeft");
         rightScalar = root.Q<IntegerField>("ScalarRight");
+        enemyCount = root.Q<IntegerField>("EnemyCount");
+        playerCount = root.Q<IntegerField>("PlayerCount");
+
         chunkButton = root.Q<Button>("ChunkAddButton");
         chunkButton.RegisterCallback<ClickEvent>(ChunkButtonAdd_Click);
         chunkWithGateButton = root.Q<Button>("ChunkGateAddButton");
         chunkWithGateButton.RegisterCallback<ClickEvent>(ChunkWithGateButtonAdd_Click);
+        chunkWithEnemyButton = root.Q<Button>("ChunkEnemyAddButton");
+        chunkWithEnemyButton.RegisterCallback<ClickEvent>(ChunkWithEnemyButtonAdd_Click);
+        chunkWithFinishButton = root.Q<Button>("ChunkFinishAddButton");
+        chunkWithFinishButton.RegisterCallback<ClickEvent>(ChunkWithFinishButtonAdd_Click);
+
         createPlayerButton = root.Q<Button>("CreatePlayerButton");
         createPlayerButton.RegisterCallback<ClickEvent>(CreatePlayerButtonAdd_Click);
+
 
         LevelDesignSO levelDesign = target as LevelDesignSO;
         chunkFactoryPrefab = levelDesign.chunkFactory.gameObject;
 
         return root;
     }
+
 
     private void CheckExistenceOfChunkFactory()
     {
@@ -70,7 +81,7 @@ public class LevelDesignEditor : Editor
                                                     Vector3.zero, Quaternion.identity);
 
             levelManager = levelManagerGO.GetComponent<LevelManager>();
-            levelManager.CreateCameraAndPlayer();
+            levelManager.CreateCameraAndPlayer(playerCount.value);
         }
     }
 
@@ -87,5 +98,17 @@ public class LevelDesignEditor : Editor
         GateIdentifier left = new GateIdentifier(leftColor.value, (GateOper)leftOpr.value, leftScalar.value);
         GateIdentifier right = new GateIdentifier(rightColor.value, (GateOper)rightOpr.value, rightScalar.value);
         chunkFactory.CreateChunkWithGate(left, right);
+    }
+
+    private void ChunkWithEnemyButtonAdd_Click(ClickEvent e)
+    {
+        CheckExistenceOfChunkFactory();
+        chunkFactory.CreateChunkWithEnemy(enemyCount.value);
+    }
+
+    private void ChunkWithFinishButtonAdd_Click(ClickEvent e)
+    {
+        CheckExistenceOfChunkFactory();
+        chunkFactory.CreateChunkWithFinihLine();
     }
 }

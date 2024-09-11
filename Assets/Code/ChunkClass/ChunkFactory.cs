@@ -4,6 +4,8 @@ public class ChunkFactory : MonoBehaviour
 {
     [SerializeField] private Chunk chunk;
     [SerializeField] private ChunkWithGate chunkWithGate;
+    [SerializeField] private ChunkWithEnemy chunkWithEnemy;
+    [SerializeField] private ChunkWithFinishLine chunkWithFinishLine;
 
     private Vector3 instantiatePosition = Vector3.zero;
     private float firstOffset = 5f;
@@ -33,6 +35,21 @@ public class ChunkFactory : MonoBehaviour
 
         ReCalculateInstantiatePosition(chunkWithGate);
     }
+
+    public void CreateChunkWithEnemy(int enemyCount)
+    {
+        Transform prefabTransform = Instantiate(chunkWithEnemy.transform, transform);
+        prefabTransform.position = GetInstantiatePosition(chunkWithEnemy);
+        EnemyCrowd enemeyCrowd = prefabTransform.GetComponent<ChunkWithEnemy>().GetChunkComponent() as EnemyCrowd;
+        enemeyCrowd.StartQuanties = enemyCount;
+    }
+
+    public void CreateChunkWithFinihLine()
+    {
+        Transform prefabTransform = Instantiate(chunkWithFinishLine.transform, transform);
+        prefabTransform.position = GetInstantiatePosition(chunkWithFinishLine);
+    }
+
     private Vector3 GetInstantiatePosition(BaseChunk baseChunk)
     {
         CheckIfFirstCreation();

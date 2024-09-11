@@ -50,11 +50,11 @@ public class PlayerCrowd : BaseCrowd, IInteractable
                 break;
             case GateOper.Multiply:
                 count = gateIdentifier.factor * crowdTransfromList.Count;
-                Addition(count);
+                Addition(count - crowdTransfromList.Count);
                 break;
             case GateOper.Divide:
                 count = Mathf.CeilToInt(((float)crowdTransfromList.Count) / gateIdentifier.factor);
-                Substraction(count);
+                Substraction(crowdTransfromList.Count - count);
                 break;
         }
     }

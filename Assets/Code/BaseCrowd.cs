@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,7 +48,7 @@ public abstract class BaseCrowd : MonoBehaviour
 
     protected void TriggerOnReachedFinishLineEvent()
     {
-        OnReachedFinishLine?.Invoke();
+        StartCoroutine(StartFinishEvent());
     }
 
     protected void TriggerOnCrowdCountChangedEvent()
@@ -119,6 +120,12 @@ public abstract class BaseCrowd : MonoBehaviour
         transformToRemove.GetComponent<CrowdUnit>().OnDie -= Crowd_OnDie;
         Destroy(transformToRemove.gameObject);
         TriggerOnCrowdCountChangedEvent();
+    }
+
+    private IEnumerator StartFinishEvent()
+    {
+        yield return new WaitForSeconds(.5f);
+        OnReachedFinishLine?.Invoke();
     }
 
     public int GetCount() => crowdTransfromList.Count;

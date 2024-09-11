@@ -16,14 +16,15 @@ public class CrowdAnimationController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        PlayRun();
+        PlayIdle();
     }
     private void OnDestroy()
     {
         if (player != null)
         {
-            this.player.OnReachedFinishLine -= Player_OnReachedFinishLine;
-            this.player.OnCrowdCountChanged -= Player_OnCrowdCountChanged;
+            player.OnReachedFinishLine -= Player_OnReachedFinishLine;
+            player.OnCrowdCountChanged -= Player_OnCrowdCountChanged;
+            player.OnStartRunning -= Player_OnStartRunning;
         }
     }
 
@@ -32,11 +33,20 @@ public class CrowdAnimationController : MonoBehaviour
         this.player = player;
         this.player.OnReachedFinishLine += Player_OnReachedFinishLine;
         this.player.OnCrowdCountChanged += Player_OnCrowdCountChanged;
+        this.player.OnStartRunning += Player_OnStartRunning;
+    }
+
+    private void Player_OnStartRunning()
+    {
+        PlayRun();
     }
 
     private void Player_OnCrowdCountChanged(int obj)
     {
-        PlayRun();
+        if (player.IsPlayer)
+        {
+            PlayRun();
+        }
     }
 
     private void Player_OnReachedFinishLine()

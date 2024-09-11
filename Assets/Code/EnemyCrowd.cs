@@ -22,7 +22,8 @@ public class EnemyCrowd : BaseCrowd
                 return;
             }
             FindTargetCrowdUnits(playerCrowd.transform);
-            StartCoroutine(MoveToTarget(targetTransform));
+            TriggerOnStartRunningEvent();
+            StartCoroutine(MoveToTarget());
             playerCrowd.ChangeSpeedForBattle();
         }
     }
@@ -32,7 +33,7 @@ public class EnemyCrowd : BaseCrowd
         this.targetTransform = targetTransform;
     }
 
-    private IEnumerator MoveToTarget(Transform c)
+    private IEnumerator MoveToTarget()
     {
         Vector3 dir = (targetTransform.position - crowdParent.position).normalized;
 

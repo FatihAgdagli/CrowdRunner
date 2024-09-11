@@ -8,6 +8,7 @@ public abstract class BaseCrowd : MonoBehaviour
     public event Action<int> OnCrowdCountChanged;
     public event Action OnCrowdFinished;
     public event Action OnReachedFinishLine;
+    public event Action OnStartRunning;
 
     [Header("Spiral Parameters")]
     [SerializeField] protected float radius = .6f;
@@ -21,6 +22,7 @@ public abstract class BaseCrowd : MonoBehaviour
 
     protected List<Transform> crowdTransfromList = new List<Transform>();
 
+    public bool IsPlayer => isPlayer;
 
     protected virtual void Awake()
     {
@@ -56,6 +58,11 @@ public abstract class BaseCrowd : MonoBehaviour
     protected void TriggerOnCrowdFinishedEvent()
     {
         OnCrowdFinished?.Invoke();
+    }
+
+    protected void TriggerOnStartRunningEvent()
+    {
+        OnStartRunning?.Invoke();
     }
 
     protected void Substraction(int count)

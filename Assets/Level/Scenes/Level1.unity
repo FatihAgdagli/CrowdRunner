@@ -1186,11 +1186,11 @@ MonoBehaviour:
   leftGameObject: {fileID: 1322728802}
   rightGameObject: {fileID: 1624295962}
   leftIdentifier:
-    color: {r: 1, g: 0, b: 0, a: 1}
+    color: {r: 1, g: 0, b: 0, a: 0.6862745}
     operation: 1
     factor: 3
   rightIdentifier:
-    color: {r: 0, g: 1, b: 0.8769696, a: 1}
+    color: {r: 0, g: 1, b: 0.8769696, a: 0.6862745}
     operation: 0
     factor: 8
 --- !u!1 &392548364
@@ -4217,11 +4217,11 @@ MonoBehaviour:
   leftGameObject: {fileID: 173034722}
   rightGameObject: {fileID: 1791387627}
   leftIdentifier:
-    color: {r: 0, g: 1, b: 0.8784314, a: 1}
+    color: {r: 0, g: 1, b: 0.8784314, a: 0.6862745}
     operation: 2
     factor: 2
   rightIdentifier:
-    color: {r: 1, g: 0, b: 0, a: 1}
+    color: {r: 1, g: 0, b: 0, a: 0.6862745}
     operation: 3
     factor: 2
 --- !u!1 &1633443004
@@ -4616,11 +4616,11 @@ MonoBehaviour:
   leftGameObject: {fileID: 258014427}
   rightGameObject: {fileID: 1650925774}
   leftIdentifier:
-    color: {r: 0, g: 1, b: 0.8784314, a: 1}
+    color: {r: 0, g: 1, b: 0.8784314, a: 0.6862745}
     operation: 0
     factor: 3
   rightIdentifier:
-    color: {r: 0, g: 1, b: 0.8769696, a: 1}
+    color: {r: 0, g: 1, b: 0.8769696, a: 0.6862745}
     operation: 0
     factor: 1
 --- !u!1 &1749582626
